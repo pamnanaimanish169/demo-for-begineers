@@ -1,0 +1,48 @@
+<!-- -  https://css-tricks.com/centering-css-complete-guide/ -->
+<!-- - https://levelup.gitconnected.com/all-possible-ways-of-making-an-api-call-in-plain-javascript-c0dee3c11b8b -->
+
+<html>
+   <head>
+      <title>Javascript Form Submit Example</title>
+      <link rel="stylesheet" href="style.css"/>
+   </head>
+   <body>
+      <div class="container">
+         <div class="main">
+            
+               <div>
+                <label>Name:</label>
+                <input type="text" name="name" id="name" placeholder="Name" />
+               </div>
+
+               <div>
+                <label>Email :</label>
+                <input type="text" name="email" id="email" placeholder="Valid Email" />
+               </div>
+               <button id="button" >Submit</button>
+            
+         </div>
+      </div>
+   </body>
+</html>
+
+<script>
+    document.getElementById('button').onclick = function () {
+    let request = new XMLHttpRequest();
+    request.open("POST", "https://jsonplaceholder.typicode.com/users");
+    const body = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value
+    }
+    console.log(body)
+    request.send(body);
+    request.onload = () => {
+        if (request.status === 200 || request.status === 201) {
+            console.log(JSON.parse(request.response))
+            alert('Request Submitted Successfully...')
+        } else {
+            console.log(`error ${request.status} ${request.statusText}`)
+        }
+    }
+};
+</script>
